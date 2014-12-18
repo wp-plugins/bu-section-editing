@@ -5,7 +5,7 @@ Plugin URI: http://developer.bu.edu/bu-section-editing/
 Author: Boston University (IS&T)
 Author URI: http://sites.bu.edu/web/
 Description: Enhances WordPress content editing workflow by providing section editing groups and permissions
-Version: 0.9.1
+Version: 0.9.2
 Text Domain: bu-section-editing
 Domain Path: /languages
 */
@@ -52,7 +52,7 @@ class BU_Section_Editing_Plugin {
 	public static $caps;
 	public static $upgrader;
 
-	const BUSE_VERSION = '0.9.1';
+	const BUSE_VERSION = '0.9.2';
 	const BUSE_VERSION_OPTION = '_buse_version';
 
 	public static function register_hooks() {
@@ -83,9 +83,6 @@ class BU_Section_Editing_Plugin {
 
 		// Roles and capabilities
 		add_filter( 'map_meta_cap', array( self::$caps, 'map_meta_cap' ), 10, 4 );
-
-		// @todo move this to the bu_user_manager plugin
-		add_filter( 'bu_user_manager_allowed_roles', array( __CLASS__, 'allowed_roles' ) );
 
 		// Admin requests
 		if( is_admin() ) {
@@ -155,19 +152,6 @@ class BU_Section_Editing_Plugin {
 			echo "<div class=\"error\">$notice</div>\n";
 			delete_transient( 'buse_nav_dep_nag' );
 		}
-
-	}
-
-	/**
-	 * Callback that adds section editor role to BU list of allowed roles
-	 */
-	public function allowed_roles( $roles ) {
-
-		if( ! array_key_exists( 'section_editor', $roles ) ) {
-			$roles[] = 'section_editor';
-		}
-
-		return $roles;
 
 	}
 
