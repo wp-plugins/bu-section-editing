@@ -2,7 +2,8 @@
 
 /**
  * More traditional unit tests against the BU_Edit_Group class
- * 
+ *
+ * @group bu
  * @group bu-section-editing
  **/
 class Test_BU_Edit_Group extends WP_UnitTestCase {
